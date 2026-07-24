@@ -28,7 +28,7 @@ object Conf
     var mainCommand = conf.getStringList("main-command")
 
     var items = mutableListOf<Material>().apply {
-        conf.getStringList("items").forEach { id ->
+        itemsConf.getStringList("items").forEach { id ->
             Material
                 .getMaterial(id.replace(' ', '_').uppercase())
                 ?.let { add(it) }
