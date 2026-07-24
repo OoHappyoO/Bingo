@@ -1,4 +1,4 @@
-package gg.happy.bingo.module
+package gg.happy.bingo.module.dataclass
 
 import org.bukkit.Material
 

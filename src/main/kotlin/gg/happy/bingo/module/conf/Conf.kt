@@ -35,4 +35,7 @@ object Conf
                 ?: console().sendError("item-load-fail", id)
         }
     }
+
+    var itemPoint = conf.getIntegerList("point.item")
+    var linePoint = conf.getIntegerList("point.item")
 }
