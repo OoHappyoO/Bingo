@@ -13,3 +13,25 @@ sneak-swap-action:
   - invero:menu open menu
 main-command:
   - invero:menu open menu
+
+
+point:
+  item:
+    - 50
+    - 40
+    - 35
+    - 30
+    - 25
+    - 20
+  line:
+    - 250
+    - 245
+    - 240
+    - 235
+    - 230
+    - 225
+    - 220
+    - 215
+    - 210
+    - 205
+    - 200

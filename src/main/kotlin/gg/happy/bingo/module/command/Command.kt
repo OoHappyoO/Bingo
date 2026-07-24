@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import taboolib.common.platform.command.CommandBody
 import taboolib.common.platform.command.CommandHeader
+import taboolib.common.platform.command.PermissionDefault
 import taboolib.common.platform.command.int
 import taboolib.common.platform.command.mainCommand
 import taboolib.common.platform.command.subCommand
@@ -18,9 +19,14 @@ import taboolib.platform.util.sendLang
 @CommandHeader("Bingo")
 object Command
 {
-    @CommandBody
+    @CommandBody(permissionDefault = PermissionDefault.TRUE)
     val main = mainCommand {
         execute<Player> { sender, _, _ ->
+            if (GameManager.phase == Waiting)
+            {
+                sender.sendLang("cant-use-main")
+                return@execute
+            }
             sender.runKether(Conf.mainCommand)
         }
     }
@@ -28,7 +34,7 @@ object Command
     @CommandBody
     val start = subCommand {
         execute<CommandSender> { sender, _, _ ->
-            if(GameManager.phase == Waiting)
+            if (GameManager.phase == Waiting)
                 GameManager.phase = Ready
             else
                 sender.sendLang("cant-use-start")

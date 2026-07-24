@@ -20,6 +20,10 @@ object Bingo : Plugin()
     lateinit var itemsConf: ConfigFile
         private set
 
+    @Config("scoreboard.yml", autoReload = true, migrate = true)
+    lateinit var scoreboardConf: ConfigFile
+        private set
+
     override fun onLoad()
     {
         Language.default = "en_US"
