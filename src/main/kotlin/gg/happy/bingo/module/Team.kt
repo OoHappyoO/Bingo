@@ -28,6 +28,8 @@ class Team(val name: String)
 
     val completedLines = MutableList(Card.LINES.size) { false }
 
+    val slotsBingoTimes = MutableList(Card.SIZE) { 0 }
+
     fun check()
     {
         checkItem()
@@ -43,7 +45,7 @@ class Team(val name: String)
             Card.items[i].let { item ->
                 players.firstOrNull { it.inventory.hasItem { it.type == item.material } }?.let { player ->
                     val rank = item.completed + 1
-                    val reward = Conf.itemPoint[min(rank, Conf.itemPoint.size) - 1]
+                    val reward = Card.getReward(i)
                     completed[i] = true
                     point += reward
                     item.completed++
@@ -73,7 +75,7 @@ class Team(val name: String)
             if (Card.LINES[i].indexes.firstOrNull { !completed[i] } == null)
             {
                 val rank = Card.lineCompleted + 1
-                val reward = Conf.linePoint[min(rank, Conf.itemPoint.size) - 1]
+                val reward = Card.getLineReward()
                 completedLines[i] = true
                 point += reward
                 Card.lineCompleted++

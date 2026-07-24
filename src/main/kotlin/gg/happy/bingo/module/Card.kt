@@ -4,6 +4,7 @@ import gg.happy.bingo.module.conf.Conf
 import gg.happy.bingo.module.dataclass.Line
 import gg.happy.bingo.module.dataclass.Target
 import taboolib.common.util.random
+import kotlin.math.max
 
 object Card
 {
@@ -36,4 +37,8 @@ object Card
         for (i in 0 until SIZE)
             items[i] = Target(toSelect.removeAt(random(toSelect.size)))
     }
+
+    fun getReward(i: Int): Int = Conf.itemPoint[max(items[i].completed, Conf.itemPoint.size - 1)]
+
+    fun getLineReward(): Int = Conf.linePoint[max(lineCompleted, Conf.linePoint.size - 1)]
 }
