@@ -1,6 +1,6 @@
 package gg.happy.bingo.module.command
 
-import gg.happy.bingo.module.ItemsGUI
+import gg.happy.bingo.module.ui.ItemsUI
 import gg.happy.bingo.module.conf.Conf
 import gg.happy.bingo.module.game.GameManager
 import gg.happy.bingo.module.game.impl.Ready
@@ -46,18 +46,18 @@ object Command
         literal("edit") {
             int("page", optional = true) {
                 execute<Player> { sender, context, _ ->
-                    ItemsGUI.init()
-                    ItemsGUI.getUI(context.int("page")).openFor(sender)
+                    ItemsUI.init()
+                    ItemsUI.getUI(context.int("page")).openFor(sender)
                 }
             }
             execute<Player> { sender, _, _ ->
-                ItemsGUI.init()
-                ItemsGUI.getUI(1).openFor(sender)
+                ItemsUI.init()
+                ItemsUI.getUI(1).openFor(sender)
             }
         }
         literal("save") {
             execute<Player> { sender, _, _ ->
-                ItemsGUI.save()
+                ItemsUI.save()
                 sender.sendLang("items-saved")
             }
         }

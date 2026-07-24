@@ -27,6 +27,7 @@ taboolib {
         install(BukkitHook)
         install(BukkitNMS)
         install(BukkitNMSUtil)
+        install(BukkitUI)
         install(BukkitUtil)
     }
     description {

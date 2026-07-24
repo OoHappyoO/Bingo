@@ -1,4 +1,4 @@
-package gg.happy.bingo.module
+package gg.happy.bingo.module.ui
 
 import gg.happy.bingo.module.conf.Conf
 import org.bukkit.Bukkit
@@ -10,11 +10,11 @@ import taboolib.common.platform.function.registerBukkitListener
 import taboolib.platform.util.buildItem
 import kotlin.math.max
 
-class ItemsGUI(val page: Int)
+class ItemsUI(val page: Int)
 {
     companion object
     {
-        val pages = mutableListOf<ItemsGUI>()
+        val pages = mutableListOf<ItemsUI>()
         var listener: ProxyListener? = null
 
         fun init()
@@ -23,10 +23,10 @@ class ItemsGUI(val page: Int)
                 listener = registerBukkitListener(InventoryClickEvent::class.java) { onInventoryClick(it) }
         }
 
-        fun getUI(page: Int): ItemsGUI
+        fun getUI(page: Int): ItemsUI
         {
             while (pages.size <= page)
-                pages.add(ItemsGUI(pages.size + 1))
+                pages.add(ItemsUI(pages.size + 1))
             return pages[page - 1]
         }
 
