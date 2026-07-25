@@ -61,6 +61,18 @@ object Command
                 sender.sendLang("items-saved")
             }
         }
+        literal("sort")
+        {
+            execute<Player> { sender, _, _ ->
+                Conf.itemsConf["items"] =
+                    Conf.items
+                        .map { it.toString() }
+                        .sorted()
+                        .distinct()
+                Conf.itemsConf.saveToFile()
+                sender.sendLang("items-saved")
+            }
+        }
     }
 
     @CommandBody
