@@ -49,7 +49,11 @@ class ItemsUI(val page: Int)
             val items = mutableListOf<String>().apply {
                 pages.forEach { ui ->
                     for (i in 9..53)
-                        ui.inv.getItem(i)?.let { add(it.type.toString()) }
+                    {
+                        val item = ui.inv.getItem(i)
+                        if (item != null)
+                            add(item.type.toString())
+                    }
                 }
             }
             Conf.itemsConf["items"] = items
