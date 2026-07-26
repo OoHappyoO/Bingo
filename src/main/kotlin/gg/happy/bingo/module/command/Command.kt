@@ -1,10 +1,12 @@
 package gg.happy.bingo.module.command
 
+import gg.happy.bingo.module.Card
 import gg.happy.bingo.module.ui.ItemsUI
 import gg.happy.bingo.module.conf.Conf
 import gg.happy.bingo.module.game.GameManager
 import gg.happy.bingo.module.game.impl.Ready
 import gg.happy.bingo.module.game.impl.Waiting
+import gg.happy.bingo.module.ui.openCard
 import gg.happy.bingo.util.runKether
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -56,14 +58,14 @@ object Command
             }
         }
         literal("save") {
-            execute<Player> { sender, _, _ ->
+            execute<CommandSender> { sender, _, _ ->
                 ItemsUI.save()
                 sender.sendLang("items-saved")
             }
         }
         literal("sort")
         {
-            execute<Player> { sender, _, _ ->
+            execute<CommandSender> { sender, _, _ ->
                 Conf.itemsConf["items"] =
                     Conf.items
                         .map { it.toString() }
@@ -73,11 +75,18 @@ object Command
                 sender.sendLang("items-saved")
             }
         }
+        literal("regenerate"){
+            execute<CommandSender> { sender, _, _ ->
+                Card.generate()
+                sender.sendLang("card-regenerated")
+            }
+        }
     }
 
     @CommandBody
     val debug = subCommand {
         execute<Player> { sender, _, _ ->
+            sender.openCard()
         }
     }
 }
