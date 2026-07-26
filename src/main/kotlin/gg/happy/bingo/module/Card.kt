@@ -4,7 +4,7 @@ import gg.happy.bingo.module.conf.Conf
 import gg.happy.bingo.module.dataclass.Line
 import gg.happy.bingo.module.dataclass.Target
 import taboolib.common.util.random
-import kotlin.math.max
+import kotlin.math.min
 
 object Card
 {
@@ -27,7 +27,9 @@ object Card
 
     var toSelect = Conf.items.toMutableList()
 
-    val items = MutableList(SIZE) { Target(toSelect.removeAt(random(toSelect.size))) }
+    val items by lazy{
+        MutableList(SIZE) { Target(toSelect.removeAt(random(toSelect.size))) }
+    }
 
     var lineCompleted = 0
 
@@ -38,7 +40,7 @@ object Card
             items[i] = Target(toSelect.removeAt(random(toSelect.size)))
     }
 
-    fun getReward(i: Int): Int = Conf.itemPoint[max(items[i].completed, Conf.itemPoint.size - 1)]
+    fun getReward(i: Int): Int = Conf.itemPoint[min(items[i].completed, Conf.itemPoint.size - 1)]
 
-    fun getLineReward(): Int = Conf.linePoint[max(lineCompleted, Conf.linePoint.size - 1)]
+    fun getLineReward(): Int = Conf.linePoint[min(lineCompleted, Conf.linePoint.size - 1)]
 }
