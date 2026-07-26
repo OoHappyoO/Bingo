@@ -9,6 +9,6 @@ main:
   title: '&e&lBingo'
   lines:
     - ''
-    - '剩余时间: %bingo_time%'
-    - '分数: %bingo_point%'
+    - '&7| 剩余时间: &e%bingo_time%'
+    - '&7| 分数: &e%bingo_point%'
     - ''

@@ -11,13 +11,11 @@ import taboolib.common.platform.service.PlatformExecutor
 import taboolib.library.xseries.XMaterial
 import taboolib.module.chat.colored
 import taboolib.module.nms.getI18nName
-import taboolib.module.ui.lockSlots
 import taboolib.module.ui.openMenu
 import taboolib.module.ui.type.Chest
 import taboolib.platform.util.asLangText
 import taboolib.platform.util.asLangTextList
 import taboolib.platform.util.buildItem
-import taboolib.platform.util.modifyLore
 import taboolib.platform.util.modifyMeta
 import taboolib.platform.util.sendLang
 import taboolib.platform.util.submit
@@ -37,7 +35,7 @@ val closeNameAni = listOf(
 
 fun Player.openCard()
 {
-    playSound(this,Sound.BLOCK_NOTE_BLOCK_PLING,0.75f,2.0f)
+    playSound(this, Sound.BLOCK_NOTE_BLOCK_PLING, 0.75f, 2.0f)
     openMenu<Chest>(asLangText("card-title")) {
         val team = PlayerData.get(this@openCard)?.team
         rows(5)
@@ -48,9 +46,8 @@ fun Player.openCard()
             "#       #",
             "#       $",
         )
-        val lockedSlots = (0 until 45).toList()
         onClick(lock = false) { event ->
-            event.lockSlots(lockedSlots)
+            event.isCancelled = true
         }
 
         set('#', XMaterial.GRAY_STAINED_GLASS_PANE) { name = " " }
@@ -129,10 +126,16 @@ fun Player.openCard()
             } else
             {
                 val reward = Card.getReward(index)
-                set(slot, buildItem(Card.items[index].material).modifyMeta<ItemMeta> {
-                    modifyLore { asLangTextList("card-item-lore", reward) }
-                    setMaxStackSize(99)
-                }) {
+                set(
+                    slot,
+                    buildItem(Card.items[index].material) {
+                        lore += asLangTextList(
+                            "card-item-lore",
+                            reward
+                        )
+                    }.modifyMeta<ItemMeta> {
+                        setMaxStackSize(99)
+                    }) {
                     val event = clickEvent()
                     val node = when (event.click)
                     {
@@ -145,7 +148,8 @@ fun Player.openCard()
                     team?.players?.forEach {
                         it.sendLang(
                             node,
-                            Card.items[index].material.getI18nName(this@openCard)
+                            name,
+                            Card.items[index].material.getI18nName(it)
                         )
                     }
                 }

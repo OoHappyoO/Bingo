@@ -35,7 +35,7 @@ class Team(
                         it,
                         this.getString("teams.$it.prefix", "")!!,
                         this.getString("teams.$it.suffix", "")!!,
-                        ChatColor.valueOf(this.getString("teams.$it.color", "WHITE")!!.uppercase())
+                        ChatColor.getByChar(this.getString("teams.$it.color", "f")!!) ?: ChatColor.WHITE
                     ).apply {
                         teams[it] = this
                     }

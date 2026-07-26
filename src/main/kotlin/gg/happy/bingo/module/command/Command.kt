@@ -20,6 +20,7 @@ import taboolib.common.platform.command.int
 import taboolib.common.platform.command.mainCommand
 import taboolib.common.platform.command.player
 import taboolib.common.platform.command.subCommand
+import taboolib.platform.util.asLangText
 import taboolib.platform.util.sendLang
 
 @CommandHeader("Bingo")
@@ -77,7 +78,7 @@ object Command
                         val player = context.player("player").cast<Player>()
                         PlayerData.get(player)?.team = team
                         team?.players?.add(player)
-                        sender.sendLang("team-player-added", context["team"], player.name)
+                        sender.sendLang("team-player-added", sender.asLangText(context["team"]), player.name)
                     }
                 }
             }

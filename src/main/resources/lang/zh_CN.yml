@@ -9,3 +9,242 @@ error: '[Bingo] 发生错误: {0}'
 world-generated: '[Bingo] {0} 已预生成.'
 
 item-load-fail: '[Bingo] 物品加载错误: {0}'
+
+red: '&c红队'
+blue: '&9蓝队'
+green: '&a绿队'
+yellow: '&e黄队'
+spectator: '&7旁观者'
+
+cannot-use-command: "&8[&c!&8] &c你暂时不能使用该指令."
+
+cant-use-main: '&8[&c!&8] &c当前无法使用 /bingo'
+cant-use-start: '&8[&c!&8] &c当前无法使用 /bingo start'
+team-player-added: '&8[&e!&8] &7已将 {1} &7加入 {0}&7.'
+
+teammate: '&l  &7 你的队友:'
+teammate-format: '&l    &7 - &f{0}'
+
+complete:
+  - '&8[&e√&8] {0} {1} &7完成了 &f{2} &e+&6{5} &8{4}'
+  - type: sound
+    sound: BLOCK_NOTE_BLOCK_PLING
+    volume: 0.75
+    pitch: 2
+
+complete-enemy:
+  - '&8[&e!&8] {0} {1} &7完成了 &f{2} &e+&6{5} &8{4}'
+
+complete-line:
+  - '&8[&e√&8] {0} &7完成了 &f{1} &e+&6{4} &8{3}'
+  - type: sound
+    sound: ENTITY_PLAYER_LEVELUP
+    volume: 0.75
+    pitch: 1
+  - type: title
+    title: ''
+    subtitle: '&bBingo!'
+    fadein: 0
+    stay: 40
+    fadeout: 20
+
+complete-line-enemy: '&8[&e!&8] {0} &7完成了 &f{1} &e+&6{4} &8{3}'
+
+
+row-1: '行 1'
+row-2: '行 2'
+row-3: '行 3'
+row-4: '行 4'
+row-5: '行 5'
+col-1: '列 1'
+col-2: '列 2'
+col-3: '列 3'
+col-4: '列 4'
+col-5: '列 5'
+diagonal: '左上右下对角线'
+anti-diagonal: '右上左下对角线'
+
+card-title: 'Bingo 卡片'
+show-reward: '&f显示物品奖励分'
+show-reward-lore:
+  - ' '
+  - '&8| &7当前 Bingo 奖励分: &f{0}'
+  - ' '
+completed: '{0}已完成'
+card-item-lore:
+  - ' '
+  - '&8| &7此物品当前奖励分: &f{0}'
+  - ' '
+  - '&8| &7左键以标记.'
+  - '&8| &7右键标记为你当前的目标.'
+  - '&8| &7Shift + 左键标记为希望队友完成的目标.'
+  - '&8| &7中键标记为应暂时忽略此物品.'
+  - ' '
+
+mark:
+  - '&8[&e!&8] &f{0} &7标记了 &f{1}&7.'
+  - type: sound
+    sound: BLOCK_NOTE_BLOCK_PLING
+    volume: 0.75
+    pitch: 2
+mark-mine:
+  - '&8[&e!&8] &f{0} &7正在收集 &f{1}&7.'
+  - type: sound
+    sound: BLOCK_NOTE_BLOCK_PLING
+    volume: 0.75
+    pitch: 2
+mark-yours:
+  - '&8[&e!&8] &f{0} &7希望你们收集 &f{1}&7.'
+  - type: sound
+    sound: BLOCK_NOTE_BLOCK_PLING
+    volume: 0.75
+    pitch: 2
+mark-ignore:
+  - '&8[&e!&8] &f{0} &7认为应暂时忽略 &f{1}&7.'
+  - type: sound
+    sound: BLOCK_NOTE_BLOCK_PLING
+    volume: 0.75
+    pitch: 2
+
+started:
+  - type: text
+    text: '&8[&e!&8] &e游戏开始.'
+  - type: title
+    title: ''
+    subtitle: '&eStart!'
+    fadein: 0
+    stay: 40
+    fadeout: 20
+  - type: sound
+    sound: ENTITY_PLAYER_LEVELUP
+    volume: 1
+    pitch: 1
+
+finish:
+  - type: title
+    title: '&c游戏结束'
+    subtitle: '&7请等待管理员进行结算'
+    fadein: 20
+    stay: 200
+    fadeout: 20
+  - type: sound
+    sound: ENTITY_ENDER_DRAGON_DEATH
+    volume: 1
+    pitch: 1
+
+ready:
+  - ' '
+  - '    &e&lBingo'
+  - ' '
+  - '  &7收集物品连线取得胜利!'
+  - ' '
+  - '&8[&e!&8] &e游戏准备就绪, 将在 60s 后开始.'
+  - '&l  &7 你的队伍: {0}'
+  - type: title
+    title: ''
+    subtitle: '&bReady!'
+    fadein: 0
+    stay: 20
+    fadeout: 20
+  - type: sound
+    sound: UI_BUTTON_CLICK
+    volume: 0.5
+    pitch: 1
+
+ready-30s:
+  - type: text
+    text: '&8[&e!&8] &e游戏将在 30s &e后开始.'
+  - type: title
+    title: ''
+    subtitle: '&e30'
+    fadein: 0
+    stay: 20
+    fadeout: 20
+  - type: sound
+    sound: UI_BUTTON_CLICK
+    volume: 0.5
+    pitch: 1
+
+ready-10s:
+  - type: text
+    text: '&8[&e!&8] &e游戏将在 10s &e后开始.'
+  - type: title
+    title: ''
+    subtitle: '&e10'
+    fadein: 0
+    stay: 20
+    fadeout: 20
+  - type: sound
+    sound: UI_BUTTON_CLICK
+    volume: 0.5
+    pitch: 1
+
+ready-5s:
+  - type: text
+    text: '&8[&e!&8] &e游戏将在 5s &e后开始.'
+  - type: title
+    title: ''
+    subtitle: '&e5'
+    fadein: 0
+    stay: 20
+    fadeout: 20
+  - type: sound
+    sound: UI_BUTTON_CLICK
+    volume: 0.5
+    pitch: 1
+
+ready-4s:
+  - type: text
+    text: '&8[&e!&8] &e游戏将在 &{#ffd42a}4s &e后开始.'
+  - type: title
+    title: ''
+    subtitle: '&{#ffd42a}4'
+    fadein: 0
+    stay: 20
+    fadeout: 20
+  - type: sound
+    sound: UI_BUTTON_CLICK
+    volume: 0.5
+    pitch: 1
+
+ready-3s:
+  - type: text
+    text: '&8[&e!&8] &e游戏将在 &63s &e后开始.'
+  - type: title
+    title: ''
+    subtitle: '&63'
+    fadein: 0
+    stay: 20
+    fadeout: 20
+  - type: sound
+    sound: UI_BUTTON_CLICK
+    volume: 0.5
+    pitch: 1
+
+ready-2s:
+  - type: text
+    text: '&8[&e!&8] &e游戏将在 &{#ff7f2a}2s &e后开始.'
+  - type: title
+    title: ''
+    subtitle: '&{#ff7f2a}2'
+    fadein: 0
+    stay: 20
+    fadeout: 20
+  - type: sound
+    sound: UI_BUTTON_CLICK
+    volume: 0.5
+    pitch: 1
+
+ready-1s:
+  - type: text
+    text: '&8[&e!&8] &e游戏将在 &c1s &e后开始.'
+  - type: title
+    title: ''
+    subtitle: '&c1'
+    fadein: 0
+    stay: 20
+    fadeout: 20
+  - type: sound
+    sound: UI_BUTTON_CLICK
+    volume: 0.5
+    pitch: 1

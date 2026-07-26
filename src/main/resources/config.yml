@@ -13,19 +13,19 @@ teams:
   red:
     prefix: ''
     suffix: ''
-    color: red
+    color: 'c'
   blue:
     prefix: ''
     suffix: ''
-    color: blue
+    color: '9'
   yellow:
     prefix: ''
     suffix: ''
-    color: yellow
+    color: 'e'
   green:
     prefix: ''
     suffix: ''
-    color: green
+    color: 'a'
 
 point:
   item:

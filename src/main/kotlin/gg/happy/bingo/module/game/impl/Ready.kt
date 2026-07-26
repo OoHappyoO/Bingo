@@ -15,6 +15,7 @@ import taboolib.common.platform.function.registerBukkitListener
 import taboolib.common.platform.function.submit
 import taboolib.common.platform.function.unregisterListener
 import taboolib.platform.BukkitPlugin
+import taboolib.platform.util.asLangText
 import taboolib.platform.util.sendLang
 import taboolib.platform.util.submit
 import java.util.UUID
@@ -31,8 +32,9 @@ object Ready : GamePhase
         Bukkit.getOnlinePlayers().forEach {
             with(it)
             {
+                val teamName = PlayerData.get(it)?.team?.name
+                it.sendLang("ready", it.asLangText(teamName ?: "spectator"))
                 teleport(spawn)
-                it.sendLang("ready")
                 if (PlayerData.isPlayer(it))
                 {
                     gameMode = GameMode.SURVIVAL
@@ -63,7 +65,6 @@ object Ready : GamePhase
                 {
                     gameMode = GameMode.SPECTATOR
                 }
-                it.sendLang("ready-60s")
             }
         }
         playerMoveListener = registerBukkitListener(PlayerMoveEvent::class.java) {
