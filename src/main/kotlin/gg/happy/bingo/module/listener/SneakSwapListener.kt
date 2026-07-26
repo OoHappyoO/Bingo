@@ -1,6 +1,7 @@
 package gg.happy.bingo.module.listener
 
 import gg.happy.bingo.module.conf.Conf
+import gg.happy.bingo.module.ui.openCard
 import gg.happy.bingo.util.runKether
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerSwapHandItemsEvent
@@ -36,7 +37,7 @@ object SneakSwapListener
         if (shotCutTemp.contains(event.player))
         {
             shotCutTemp.remove(event.player)
-            event.player.runKether(Conf.sneakSwapAction)
+            event.player.openCard()
             event.isCancelled = true
         }
     }

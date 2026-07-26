@@ -1,4 +1,3 @@
-
 placeholder-identifier: 'bingo'
 
 spawn:
@@ -9,11 +8,24 @@ spawn:
   yaw: 0
   pitch: 0
 
-sneak-swap-action:
-  - invero:menu open menu
-main-command:
-  - invero:menu open menu
-
+teams:
+  priority: [ 'red', 'blue', 'yellow', 'green' ]
+  red:
+    prefix: ''
+    suffix: ''
+    color: red
+  blue:
+    prefix: ''
+    suffix: ''
+    color: blue
+  yellow:
+    prefix: ''
+    suffix: ''
+    color: yellow
+  green:
+    prefix: ''
+    suffix: ''
+    color: green
 
 point:
   item:

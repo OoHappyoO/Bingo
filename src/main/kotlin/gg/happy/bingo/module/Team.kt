@@ -1,21 +1,54 @@
 package gg.happy.bingo.module
 
+import gg.happy.bingo.module.ScoreboardManager.scoreboard
 import gg.happy.bingo.module.conf.Conf
 import gg.happy.bingo.util.getOrdinalSuffix
 import org.bukkit.Bukkit
+import org.bukkit.ChatColor
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
+import taboolib.common.LifeCycle
+import taboolib.common.platform.Awake
 import taboolib.module.nms.getI18nName
 import taboolib.platform.util.asLangText
 import taboolib.platform.util.hasItem
 import taboolib.platform.util.sendLang
-import kotlin.math.min
+import kotlin.collections.set
 
-class Team(val name: String)
+class Team(
+    val name: String,
+    val prefix: String,
+    val suffix: String,
+    val color: ChatColor
+)
 {
     companion object
     {
-        val teams = mutableListOf<Team>()
+        val teams = hashMapOf<String, Team>()
+
+        @Awake(LifeCycle.ENABLE)
+        fun init()
+        {
+            with(Conf.conf) {
+                getStringList("teams.priority").forEach {
+                    Team(
+                        it,
+                        this.getString("teams.$it.prefix", "")!!,
+                        this.getString("teams.$it.suffix", "")!!,
+                        ChatColor.valueOf(this.getString("teams.$it.color", "WHITE")!!.uppercase())
+                    ).apply {
+                        teams[it] = this
+                    }
+                }
+            }
+        }
+
+        fun onTick()
+        {
+            teams.forEach { (_, team) ->
+                team.check()
+            }
+        }
     }
 
     var point = 0
@@ -24,11 +57,25 @@ class Team(val name: String)
 
     val offlinePlayers = mutableListOf<OfflinePlayer>()
 
+    private val team: org.bukkit.scoreboard.Team = scoreboard.getTeam(name) ?: scoreboard.registerNewTeam(name).apply {
+        color = this@Team.color
+        prefix = this@Team.prefix
+        suffix = this@Team.suffix
+    }
+
     val completed = MutableList(Card.SIZE) { false }
 
     val completedLines = MutableList(Card.LINES.size) { false }
 
     val slotsBingoTimes = MutableList(Card.SIZE) { 0 }
+
+    fun addPlayer(player: Player)
+    {
+        players += player
+        offlinePlayers += player
+        PlayerData.get(player)?.team = this
+        team.addEntry(player.name)
+    }
 
     fun check()
     {
@@ -72,13 +119,14 @@ class Team(val name: String)
         {
             if (completedLines[i])
                 continue
-            if (Card.LINES[i].indexes.firstOrNull { !completed[i] } == null)
+            if (Card.LINES[i].indexes.firstOrNull { !completed[it] } == null)
             {
                 val rank = Card.lineCompleted + 1
                 val reward = Card.getLineReward()
                 completedLines[i] = true
                 point += reward
                 Card.lineCompleted++
+                Card.LINES[i].indexes.forEach { slotsBingoTimes[it]++ }
 
                 Bukkit.getOnlinePlayers().forEach {
                     it.sendLang(

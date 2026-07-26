@@ -37,6 +37,7 @@ val closeNameAni = listOf(
 
 fun Player.openCard()
 {
+    playSound(this,Sound.BLOCK_NOTE_BLOCK_PLING,0.75f,2.0f)
     openMenu<Chest>(asLangText("card-title")) {
         val team = PlayerData.get(this@openCard)?.team
         rows(5)

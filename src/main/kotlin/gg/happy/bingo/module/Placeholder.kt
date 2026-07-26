@@ -1,6 +1,8 @@
 package gg.happy.bingo.module
 
 import gg.happy.bingo.module.conf.Conf
+import gg.happy.bingo.module.game.impl.Main
+import gg.happy.bingo.util.tickToFormatted
 import org.bukkit.entity.Player
 import taboolib.platform.compat.PlaceholderExpansion
 
@@ -20,6 +22,10 @@ object Placeholder : PlaceholderExpansion
                 player?.let { PlayerData.get(it) }?.team?.let {
                     it.completed[args.substringAfter("card_completed_").toInt()].toString()
                 } ?: "null"
+
+            args == "time" -> tickToFormatted(Main.timer)
+
+            args == "point" -> player?.let { PlayerData.get(it)?.team?.point.toString() } ?: "null"
 
             else -> "null"
         }

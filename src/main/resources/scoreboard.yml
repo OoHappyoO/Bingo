@@ -1,10 +1,14 @@
-
 waiting:
-  title: 'Bingo'
+  title: '&e&lBingo'
   lines:
+    - ''
+    - '等待开始...'
     - ''
 
 main:
-  title: 'Bingo'
+  title: '&e&lBingo'
   lines:
+    - ''
+    - '剩余时间: %bingo_time%'
+    - '分数: %bingo_point%'
     - ''

@@ -1,9 +1,12 @@
 package gg.happy.bingo.module.command
 
 import gg.happy.bingo.module.Card
+import gg.happy.bingo.module.PlayerData
+import gg.happy.bingo.module.Team
 import gg.happy.bingo.module.ui.ItemsUI
 import gg.happy.bingo.module.conf.Conf
 import gg.happy.bingo.module.game.GameManager
+import gg.happy.bingo.module.game.impl.Main
 import gg.happy.bingo.module.game.impl.Ready
 import gg.happy.bingo.module.game.impl.Waiting
 import gg.happy.bingo.module.ui.openCard
@@ -15,6 +18,7 @@ import taboolib.common.platform.command.CommandHeader
 import taboolib.common.platform.command.PermissionDefault
 import taboolib.common.platform.command.int
 import taboolib.common.platform.command.mainCommand
+import taboolib.common.platform.command.player
 import taboolib.common.platform.command.subCommand
 import taboolib.platform.util.sendLang
 
@@ -29,17 +33,54 @@ object Command
                 sender.sendLang("cant-use-main")
                 return@execute
             }
-            sender.runKether(Conf.mainCommand)
+            sender.openCard()
         }
     }
 
     @CommandBody
-    val start = subCommand {
-        execute<CommandSender> { sender, _, _ ->
-            if (GameManager.phase == Waiting)
-                GameManager.phase = Ready
-            else
-                sender.sendLang("cant-use-start")
+    val game = subCommand {
+        literal("start") {
+            execute<CommandSender> { sender, _, _ ->
+                if (GameManager.phase == Waiting)
+                    GameManager.phase = Ready
+                else
+                    sender.sendLang("cant-use-start")
+            }
+        }
+        literal("time") {
+            literal("add") {
+                int("duration")
+                execute<CommandSender> { _, context, _ ->
+                    Main.timer += context.int("duration")
+                }
+            }
+            literal("reduce") {
+                int("duration")
+                execute<CommandSender> { _, context, _ ->
+                    Main.timer -= context.int("duration")
+                }
+            }
+        }
+    }
+
+    @CommandBody
+    val team = subCommand {
+        dynamic("team") {
+            suggestion<CommandSender> { _, _ ->
+                Team.teams.map { it.key }
+            }
+            literal("add")
+            {
+                player("player") {
+                    execute<CommandSender> { sender, context, _ ->
+                        val team = Team.teams[context["team"]]
+                        val player = context.player("player").cast<Player>()
+                        PlayerData.get(player)?.team = team
+                        team?.players?.add(player)
+                        sender.sendLang("team-player-added", context["team"], player.name)
+                    }
+                }
+            }
         }
     }
 
@@ -75,7 +116,7 @@ object Command
                 sender.sendLang("items-saved")
             }
         }
-        literal("regenerate"){
+        literal("regenerate") {
             execute<CommandSender> { sender, _, _ ->
                 Card.generate()
                 sender.sendLang("card-regenerated")

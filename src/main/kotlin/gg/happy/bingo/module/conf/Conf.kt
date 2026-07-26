@@ -37,5 +37,5 @@ object Conf
     }
 
     var itemPoint = conf.getIntegerList("point.item")
-    var linePoint = conf.getIntegerList("point.item")
+    var linePoint = conf.getIntegerList("point.line")
 }
